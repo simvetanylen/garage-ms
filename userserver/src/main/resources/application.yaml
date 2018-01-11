@@ -1,0 +1,12 @@
+spring :
+  datasource :
+    url : jdbc:postgresql://localhost/garagedb
+    username : postgres
+    password : postgres
+  jpa :
+    properties :
+      hibernate :
+        temp :
+          use_jdbc_metadata_defaults : false
+        hbm2ddl :
+          auto : validate
