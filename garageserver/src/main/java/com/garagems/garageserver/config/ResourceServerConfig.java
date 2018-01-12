@@ -1,5 +1,7 @@
 package com.garagems.garageserver.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,8 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
+    Logger log = LoggerFactory.getLogger(ResourceServerConfig.class);
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
@@ -34,20 +38,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        log.info("Configuring ResourceServerSecurityConfigurer ");
         resources.resourceId("foo").tokenStore(tokenStore);
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtTokenEnhancer());
-    }
-
-    @Bean
-    protected JwtAccessTokenConverter jwtTokenEnhancer() {
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "mySecretKey".toCharArray());
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
-        return converter;
     }
 
     @Autowired
