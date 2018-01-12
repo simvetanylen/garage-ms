@@ -31,7 +31,7 @@ public class JwtConfig {
 
     @Bean
     protected JwtAccessTokenConverter jwtTokenEnhancer() {
-        JwtAccessTokenConverter converter =  new JwtAccessTokenConverter();
+        JwtAccessTokenConverter converter =  new CustomJwtAccessTokenConverter();
         Resource resource = new ClassPathResource("public.cert");
         String publicKey = null;
         try {
