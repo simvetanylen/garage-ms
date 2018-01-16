@@ -1,5 +1,8 @@
 package com.garagems.garageserver.config;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
@@ -21,75 +24,56 @@ import java.util.Map;
 
 public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
 
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper() {{
+        enable(SerializationFeature.INDENT_OUTPUT);
+    }};
+
     public CustomJwtAccessTokenConverter() {
         super();
     }
 
-    public void setAccessTokenConverter(AccessTokenConverter tokenConverter) {
-        super.setAccessTokenConverter(tokenConverter);
-    }
-
-    public AccessTokenConverter getAccessTokenConverter() {
-        return super.getAccessTokenConverter();
-    }
-
-    public Map<String, ?> convertAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
-        return super.convertAccessToken(token, authentication);
-    }
-
     public OAuth2AccessToken extractAccessToken(String value, Map<String, ?> map) {
-        return super.extractAccessToken(value, map);
+        OAuth2AccessToken result = super.extractAccessToken(value, map);
+        System.out.println("extractAccessToken");
+        try {
+            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public OAuth2Authentication extractAuthentication(Map<String, ?> map) {
-        return super.extractAuthentication(map);
-    }
-
-    public void setVerifier(SignatureVerifier verifier) {
-        super.setVerifier(verifier);
-    }
-
-    public void setSigner(Signer signer) {
-        super.setSigner(signer);
-    }
-
-    public Map<String, String> getKey() {
-        return super.getKey();
-    }
-
-    public void setKeyPair(KeyPair keyPair) {
-        super.setKeyPair(keyPair);
-    }
-
-    public void setSigningKey(String key) {
-        super.setSigningKey(key);
-    }
-
-    public boolean isPublic() {
-        return super.isPublic();
-    }
-
-    public void setVerifierKey(String key) {
-        super.setVerifierKey(key);
-    }
-
-    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        return super.enhance(accessToken, authentication);
+        OAuth2Authentication result = super.extractAuthentication(map);
+        System.out.println("extractAuthentication");
+        try {
+            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public boolean isRefreshToken(OAuth2AccessToken token) {
-        return super.isRefreshToken(token);
-    }
-
-    protected String encode(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        return super.encode(accessToken, authentication);
+        boolean result = super.isRefreshToken(token);
+        System.out.println("isRefreshToken");
+        try {
+            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     protected Map<String, Object> decode(String token) {
-        return super.decode(token);
+        Map<String, Object> result = super.decode(token);
+        System.out.println("decode");
+        try {
+            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    public void afterPropertiesSet() throws Exception {
-        super.afterPropertiesSet();
-    }
 }

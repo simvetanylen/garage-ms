@@ -14,6 +14,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Configuration
 @EnableAuthorizationServer
@@ -26,7 +29,20 @@ public class OauthConfig extends AuthorizationServerConfigurerAdapter {
                 .scopes("FOO")
                 .autoApprove(true)
                 .authorities("FOO_READ", "FOO_WRITE")
-                .authorizedGrantTypes("implicit","refresh_token", "password", "authorization_code");
+                .authorizedGrantTypes("implicit","refresh_token", "password", "authorization_code")
+        .and()
+        .withClient("web_app2")
+        .scopes("FOO2")
+        .autoApprove(true)
+        .authorities("FOO2")
+        .authorizedGrantTypes("implicit","refresh_token", "password", "authorization_code")
+                .and()
+                .withClient("web_app")
+                .scopes("FOO2")
+                .autoApprove(true)
+                .authorities("FOO2")
+                .authorizedGrantTypes("implicit","refresh_token", "password", "authorization_code")
+                ;
     }
 
     @Override
@@ -49,5 +65,10 @@ public class OauthConfig extends AuthorizationServerConfigurerAdapter {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
         return converter;
+    }
+
+    @RequestMapping("/user")
+    public Principal user(Principal user) {
+        return user;
     }
 }
