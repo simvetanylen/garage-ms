@@ -1,6 +1,7 @@
 server :
   port : 9998
+
 security:
-  oauth2:
-    resource:
-      userInfoUri: http://localhost:9999/user
+ oauth2:
+   resource:
+     userInfoUri: http://localhost:9997/user

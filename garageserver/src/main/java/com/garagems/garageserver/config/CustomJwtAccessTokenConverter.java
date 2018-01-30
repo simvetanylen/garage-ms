@@ -22,58 +22,58 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
-
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper() {{
-        enable(SerializationFeature.INDENT_OUTPUT);
-    }};
-
-    public CustomJwtAccessTokenConverter() {
-        super();
-    }
-
-    public OAuth2AccessToken extractAccessToken(String value, Map<String, ?> map) {
-        OAuth2AccessToken result = super.extractAccessToken(value, map);
-        System.out.println("extractAccessToken");
-        try {
-            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public OAuth2Authentication extractAuthentication(Map<String, ?> map) {
-        OAuth2Authentication result = super.extractAuthentication(map);
-        System.out.println("extractAuthentication");
-        try {
-            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean isRefreshToken(OAuth2AccessToken token) {
-        boolean result = super.isRefreshToken(token);
-        System.out.println("isRefreshToken");
-        try {
-            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    protected Map<String, Object> decode(String token) {
-        Map<String, Object> result = super.decode(token);
-        System.out.println("decode");
-        try {
-            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-}
+//public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
+//
+//    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper() {{
+//        enable(SerializationFeature.INDENT_OUTPUT);
+//    }};
+//
+//    public CustomJwtAccessTokenConverter() {
+//        super();
+//    }
+//
+//    public OAuth2AccessToken extractAccessToken(String value, Map<String, ?> map) {
+//        OAuth2AccessToken result = super.extractAccessToken(value, map);
+//        System.out.println("extractAccessToken");
+//        try {
+//            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+//
+//    public OAuth2Authentication extractAuthentication(Map<String, ?> map) {
+//        OAuth2Authentication result = super.extractAuthentication(map);
+//        System.out.println("extractAuthentication");
+//        try {
+//            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+//
+//    public boolean isRefreshToken(OAuth2AccessToken token) {
+//        boolean result = super.isRefreshToken(token);
+//        System.out.println("isRefreshToken");
+//        try {
+//            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+//
+//    protected Map<String, Object> decode(String token) {
+//        Map<String, Object> result = super.decode(token);
+//        System.out.println("decode");
+//        try {
+//            System.out.println(OBJECT_MAPPER.writeValueAsString(result));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+//
+//}

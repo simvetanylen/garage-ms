@@ -9,3 +9,4 @@
 
 server :
   port : 9999
+  contextPath : /auth

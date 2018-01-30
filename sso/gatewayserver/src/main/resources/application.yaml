@@ -1,0 +1,25 @@
+server:
+  port: 7003
+
+security:
+  oauth2:
+    client:
+      accessTokenUri: http://localhost:7001/auth/oauth/token
+      userAuthorizationUri: http://localhost:7001/auth/oauth/authorize
+      grantType: Authorization code
+      clientId: acme
+      clientSecret: acmesecret
+    resource:
+      tokenInfoUri: http://localhost:7001/auth/oauth/token
+      tokenType: Authorization code
+  sso:
+    loginPath: http://localhost:7001/auth/login
+
+zuul:
+  routes:
+    resource:
+      path: /resource/**
+      url: http://localhost:7002
+    user:
+      path: /user/**
+      url: http://localhost:7001/auth/user

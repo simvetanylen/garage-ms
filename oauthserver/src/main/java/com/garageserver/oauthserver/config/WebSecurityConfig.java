@@ -21,26 +21,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+        http.authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .authorizeRequests()
-                .antMatchers("/**").authenticated()
-                .and()
-                .httpBasic();
+                .formLogin().permitAll();
     }
 
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .csrf().disable()
+//                .exceptionHandling()
+//                .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/**").authenticated()
+//                .and()
+//                .httpBasic();
+//    }
+//
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("reader")
-                .password("reader")
-                .authorities("FOO_READ", "FOO_LOLILOL")
-                .and()
-                .withUser("writer")
-                .password("writer")
-                .authorities("FOO_READ", "FOO_WRITE");
+                .withUser("john").password("123").roles("USER");
     }
 }

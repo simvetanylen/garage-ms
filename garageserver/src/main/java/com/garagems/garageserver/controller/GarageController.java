@@ -6,20 +6,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
-@RestController("/foo")
+@RestController
 public class GarageController {
 
-    @GetMapping
-    @PreAuthorize("hasAuthority('FOO_READ')")
-    public @ResponseBody String unauth() {
-        return "Ok unauth"  + UUID.randomUUID().toString();
+    @GetMapping("garage")
+    @PreAuthorize("hasRole('FOO_READ')")
+    public @ResponseBody String get() {
+        return "OK GET";
     }
 
-    @PostMapping
-    @PreAuthorize("hasAuthority('FOO_WRITE')")
-    public @ResponseBody String auth() {
-        return "Ok auth" + UUID.randomUUID().toString();
+    @PostMapping("garage")
+    @PreAuthorize("hasRole('FOO_WRITE')")
+    public @ResponseBody String post() {
+        return "OK POST";
     }
 }

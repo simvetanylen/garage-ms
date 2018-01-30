@@ -1,0 +1,7 @@
+server:
+  port: 7002
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:7001/auth/user

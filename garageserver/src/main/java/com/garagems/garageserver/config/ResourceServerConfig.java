@@ -18,33 +18,31 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
-@Configuration
-@EnableResourceServer
-public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-
-    Logger log = LoggerFactory.getLogger(ResourceServerConfig.class);
-
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/**").authenticated()
-                .antMatchers(HttpMethod.GET, "/foo").hasAuthority("FOO_READ");
-        //.antMatchers(HttpMethod.POST, "/foo").hasAuthority("FOO_WRITE");
-        //you can implement it like this, but I show method invocation security on write
-    }
-
-
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        log.info("Configuring ResourceServerSecurityConfigurer ");
-        resources.resourceId("foo").tokenStore(tokenStore);
-    }
-
-    @Autowired
-    TokenStore tokenStore;
-
-    @Autowired
-    JwtAccessTokenConverter tokenConverter;
-}
+//@Configuration
+//@EnableResourceServer
+//public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+//
+//    Logger log = LoggerFactory.getLogger(ResourceServerConfig.class);
+//
+//    @Override
+//    public void configure(HttpSecurity http) throws Exception {
+//        http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/**").authenticated()
+//                .antMatchers(HttpMethod.GET, "/foo").hasAuthority("FOO_READ");
+//    }
+//
+//
+//    @Override
+//    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+//        log.info("Configuring ResourceServerSecurityConfigurer ");
+//        resources.resourceId("foo").tokenStore(tokenStore);
+//    }
+//
+//    @Autowired
+//    TokenStore tokenStore;
+//
+//    @Autowired
+//    JwtAccessTokenConverter tokenConverter;
+//}

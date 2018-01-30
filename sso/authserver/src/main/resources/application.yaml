@@ -1,0 +1,7 @@
+server:
+  port: 7001
+  contextPath: /auth
+
+security:
+  user:
+    password: password
