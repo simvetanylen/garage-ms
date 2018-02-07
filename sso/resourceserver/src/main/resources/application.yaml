@@ -5,3 +5,7 @@ security:
   oauth2:
     resource:
       userInfoUri: http://localhost:7001/auth/user
+
+logging:
+  level:
+    org.springframework.security: DEBUG
